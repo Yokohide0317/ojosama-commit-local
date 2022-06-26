@@ -1,3 +1,5 @@
+use serde_json::json;
+use std::collections::HashMap;
 use std::process::Command;
 use std::process::ExitCode;
 #[derive(Debug)]
@@ -5,21 +7,32 @@ struct Arguments {
     message: String,
 }
 
-fn main() -> ExitCode {
+#[tokio::main]
+async fn main() -> ExitCode {
     let args = match parse_args() {
         Ok(o) => o,
         Err(e) => return e,
     };
 
     let message = args.message;
+    let post_body = json!({ "Text": message });
 
-    let output = Command::new("ojosama")
-        .arg("-t")
-        .arg(message)
-        .output()
-        .expect("ojosama が呼び出せませんでしたわ");
+    let client = reqwest::Client::new();
+    let res = client
+        .post("https://ojosama.herokuapp.com/api/ojosama")
+        .json(&post_body)
+        .send()
+        .await
+        .expect("リクエストに失敗してしまいましたわ。")
+        .text()
+        .await
+        .expect("テキストをレスポンスから抽出できませんでしたわ。");
+    let res_text: HashMap<String, String> =
+        serde_json::from_str(&res).expect("かえってきたデータの処理に失敗してしまいましたわ。");
 
-    let commit_message = String::from_utf8_lossy(&output.stdout).to_string();
+    let commit_message = res_text
+        .get("Result")
+        .expect("メッセージを取り出すのに失敗してしまいましたわ。");
 
     let is_success = Command::new("git")
         .arg("commit")
