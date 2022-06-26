@@ -1,7 +1,12 @@
-# ojosama-commit
+# ojosama-commit-local
 
-commit message を ojosama 風に変換して commit いたしますわ～！
+[Sigumaa / ojosama-commit](https://github.com/Sigumaa/ojosama-commit)
 
+こちらForkし、goのコマンドを呼び出してローカルで実行できるようにしました。
+
+[jiro4989 / ojosama](https://github.com/jiro4989/ojosama)
+
+また、`ogit`として、`git`コマンドにaliasを付けれるよう、機能を追加予定です。
 
 ## Setup
 
@@ -19,6 +24,7 @@ cargo build
 ogit "commit message"
 ```
 
+※以下、[jiro4989 / ojosama](https://github.com/jiro4989/ojosama)様のREADMEをそのまま残しております。
 
 ## 壱百満天原サロメお嬢様について
 
