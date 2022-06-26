@@ -2,6 +2,24 @@
 
 commit message を ojosama 風に変換して commit いたしますわ～！
 
+
+## Setup
+
+```
+go install github.com/jiro4989/ojosama/cmd/ojosama@latest
+
+git clone https://github.com/Yokohide0317/ojosama-commit-local.git
+cd ojosama-commit-local
+cargo build
+```
+
+## How to Use
+
+```
+ogit "commit message"
+```
+
+
 ## 壱百満天原サロメお嬢様について
 
 以下を参照してくださいまし。
